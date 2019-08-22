@@ -7,7 +7,7 @@
   "author": "Puria Nafisi Azizi <puria@dyne.org>",
   "license": "AGPL-3.0-only",
   "scripts": {
-    "start": "light-server -s ./src/ -p 9090 -w \"src/**/*.js, src/**/*.html # yarn start \""
+    "start": "light-server -s ./src/ -p 9090 -w \"src/**/*.js, src/**/*.html \""
   },
   "devDependencies": {
     "light-server": "^2.6.3"
