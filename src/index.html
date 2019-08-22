@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zencrypt online demo</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:300,500">
+  <script defer src="//use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+  <script src="//code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="./index.js"></script>
+  <style>body { font-family: Montserrat, sans-serif; font-size: 1.75rem;}</style>
+</head>
+
+<body>
+  <h1>Welcome to Zencrypt!</h1>
+  
+  <p>The purpose of this example webpage is to allow multiple keys encryption within the browser with Zencode Natual Language Smart Contracts, part of the Zenroom.org tool ecosystem</p>
+  <form method="post" enctype="multipart/form-data">
+    <input type="file" name="rawfile" />
+    <input type="submit" value="Upload File" name="submit" />
+  </form>
+  <script async type="text/javascript" src="zenroom.js"></script>
+  <script>
+    ZC.init()
+  </script>
+</body>
+</html>
+

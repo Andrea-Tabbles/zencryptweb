@@ -1,0 +1,15 @@
+{
+  "name": "zencryptweb",
+  "version": "0.0.1",
+  "description": "File encryption in browser with Zenroom",
+  "main": "index.js",
+  "repository": "https://github.com/dyne/zencryptweb.git",
+  "author": "Puria Nafisi Azizi <puria@dyne.org>",
+  "license": "AGPL-3.0-only",
+  "scripts": {
+    "start": "light-server -s ./src/ -p 9090 -w \"src/**/*.js, src/**/*.html # yarn start \""
+  },
+  "devDependencies": {
+    "light-server": "^2.6.3"
+  }
+}
