@@ -77,7 +77,7 @@ var ZC = (function() {
         Module.ccall('zencode_exec', 
                          'number',
                          ['string', 'string', 'string', 'string', 'number'],
-                         [code, null, keys, data, 0]);
+                         [code, null, keys, data, 3]);
         let t1 = performance.now()
         console.log(t1-t0, 'ms')
     }
@@ -95,8 +95,8 @@ var Module = {
         zencodeResults.push(text)
     },
     printErr: function(text) {
-        if (arguments.length > 1)
-            text = Array.prototype.slice.call(arguments).join(' ')
+        // if (arguments.length > 1)
+        //     text = Array.prototype.slice.call(arguments).join(' ')
         console.error(text)
     },
     exec_ok: () => {},
