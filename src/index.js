@@ -1,12 +1,8 @@
 var zencodeResults = []
 
-// ucs-2 string to base64 encoded ascii
 function utoa(str) {
-    return btoa(unescape(encodeURIComponent(str)));
-}
-// base64 encoded ascii to ucs-2 string
-function atou(str) {
-    return decodeURIComponent(escape(atob(str)));
+    const result = btoa(str) // unescape(encodeURIComponent(str))) //.replace(/\//g, '_').replace(/\+/g, '-');
+    return result
 }
 
 var ZC = (function() {
@@ -24,7 +20,7 @@ var ZC = (function() {
                  When I create my new keypair
                  Then print my data`, null, null)
         bobKeys = JSON.parse(zencodeResults.pop())
-        $("#bob").html(JSON.stringify({Bob: { public: bobKeys.Bob.keypair.public_key}}))
+        $("#bob").html(JSON.stringify({Bob: { public_key: bobKeys.Bob.keypair.public_key}}))
 
         zencode(`Scenario 'simple': $scenario
                  Given that I am known as 'Alice'
@@ -54,8 +50,8 @@ var ZC = (function() {
     const encrypt = (rawContent) => {
         const encodedContent = utoa(rawContent)
         const content = [
-            { base64: encodedContent },
-            { Bob: { public: bobKeys.Bob.keypair.public_key }}
+            { url64: encodedContent },
+            { Bob: { public_key: bobKeys.Bob.keypair.public_key }}
         ]
 
         zencode(`Scenario 'simple': $scenario
@@ -69,10 +65,11 @@ var ZC = (function() {
                  JSON.stringify(content)
                 )
 
-        $("#result").html(zencodeResults.pop())
+        $("#result").html(zencodeResults)
     }
 
     const zencode = function(code, keys, data) {
+        zencodeResults = []
         let t0 = performance.now()
         Module.ccall('zencode_exec', 
                          'number',
