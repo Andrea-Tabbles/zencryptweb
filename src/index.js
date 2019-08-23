@@ -48,19 +48,18 @@ var ZC = (function() {
     }
 
     const encrypt = (rawContent) => {
-        const encodedContent = utoa(rawContent)
         const content = [
-            { url64: encodedContent },
-            { Bob: { public_key: bobKeys.Bob.keypair.public_key }}
+            { base64: btoa(rawContent) },
+            { Bob: { public: bobKeys.Bob.keypair.public_key }}
         ]
 
         zencode(`Scenario 'simple': $scenario
                  Given that I am known as 'Alice'
                  and I have my 'keypair'
                  and I have inside 'Bob' a valid 'public key'
-                 and I have a 'url64'
-                 When I encrypt the 'url64' as 'secret message'
-                 Then print the 'secret message'`,
+                 and I have a 'base64'
+                 When I encrypt the 'base64' to 'secret message' for 'Bob'
+                 Then print the 'base64'`,
                  JSON.stringify(aliceKeys),
                  JSON.stringify(content)
                 )
