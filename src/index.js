@@ -49,7 +49,7 @@ var ZC = (function() {
 
     const encrypt = (rawContent) => {
         const content = [
-            { base64: btoa(rawContent) },
+            { base64: btoa(unescape(encodeURIComponent(rawContent))) },
             { Bob: { public_key: bobKeys.Bob.keypair.public_key }}
         ]
 
