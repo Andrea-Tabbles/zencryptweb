@@ -5,6 +5,13 @@ function utoa(str) {
     return result
 }
 
+function allocateUTF8(str) {
+    var size = lengthBytesUTF8(str) + 1;
+    var ret = _malloc(size);
+    if (ret) stringToUTF8Array(str, HEAP8, ret, size);
+    return ret;
+}
+
 var ZC = (function() {
     let bobKeys = null
     let aliceKeys = null
@@ -72,17 +79,25 @@ var ZC = (function() {
     const zencode = function(code, keys, data) {
         zencodeResults = []
         t0 = performance.now()
-        Module.ccall('zencode_exec', 
-                         'number',
-                         ['string', 'string', 'string', 'string', 'number'],
-                         [code, null, keys, data, 0]);
+        if (data) {
+            const pointer = allocateUTF8(data);
+            Module.ccall('zencode_exec', 
+                            'number',
+                            ['string', 'string', 'string', 'number', 'number'],
+                            [code, null, keys, pointer, 0]);
+            Module._free(pointer);
+        } else {
+            Module.ccall('zencode_exec', 
+                            'number',
+                            ['string', 'string', 'string', 'string', 'number'],
+                            [code, null, keys, data, 0]);
+        }
         t1 = performance.now()
         $('#speed').html(t1-t0)
     }
 
     return {
-        init: init,
-        zencode: zencode
+        init: init
     }
 })();
 
@@ -95,7 +110,7 @@ var Module = {
     printErr: function(text) {
         // if (arguments.length > 1)
         //     text = Array.prototype.slice.call(arguments).join(' ')
-        console.error(text)
+        // console.error(text)
     },
     exec_ok: () => {},
     exec_error: () => {},
