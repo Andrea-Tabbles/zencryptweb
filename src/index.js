@@ -59,7 +59,7 @@ var ZC = (function() {
                  and I have inside 'Bob' a valid 'public key'
                  and I have a 'base64'
                  When I encrypt the 'base64' to 'secret message' for 'Bob'
-                 Then print the 'base64'`,
+                 Then print the 'secret message'`,
                  JSON.stringify(aliceKeys),
                  JSON.stringify(content)
                 )
