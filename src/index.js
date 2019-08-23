@@ -50,7 +50,7 @@ var ZC = (function() {
     const encrypt = (rawContent) => {
         const content = [
             { base64: btoa(rawContent) },
-            { Bob: { public: bobKeys.Bob.keypair.public_key }}
+            { Bob: { public_key: bobKeys.Bob.keypair.public_key }}
         ]
 
         zencode(`Scenario 'simple': $scenario
