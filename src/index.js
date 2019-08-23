@@ -8,6 +8,8 @@ function utoa(str) {
 var ZC = (function() {
     let bobKeys = null
     let aliceKeys = null
+	let t0 = 0
+	let t1 = 0
 
     const init = function() {
         generateKeys()
@@ -69,13 +71,13 @@ var ZC = (function() {
 
     const zencode = function(code, keys, data) {
         zencodeResults = []
-        let t0 = performance.now()
+        t0 = performance.now()
         Module.ccall('zencode_exec', 
                          'number',
                          ['string', 'string', 'string', 'string', 'number'],
-                         [code, null, keys, data, 3]);
-        let t1 = performance.now()
-        console.log(t1-t0, 'ms')
+                         [code, null, keys, data, 0]);
+        t1 = performance.now()
+        $('#speed').html(t1-t0)
     }
 
     return {
