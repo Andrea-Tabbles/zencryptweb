@@ -1,19 +1,23 @@
 var zencodeResults = []
 
-function utoa(str) {
-    const result = btoa(str) // unescape(encodeURIComponent(str))) //.replace(/\//g, '_').replace(/\+/g, '-');
-    return result
-}
-
 var ZC = (function() {
     let bobKeys = null
     let aliceKeys = null
-	let t0 = 0
-	let t1 = 0
-
+    let t0 = 0
+    let t1 = 0
+    let zencode_encrypt_contract = `Scenario 'simple': Alice sends a secret to Bob
+Given that I am known as 'Alice'
+and I have my 'keypair'
+and I have inside 'Bob' a valid 'public key'
+and I have a 'base64'
+When I encrypt the 'base64' to 'secret message' for 'Bob'
+Then print the 'secret message'
+`
     const init = function() {
         generateKeys()
         setupForm()
+		$('#encrypt_contract').html(zencode_encrypt_contract)
+
     };
 
     const generateKeys = () => {
@@ -55,16 +59,9 @@ var ZC = (function() {
             { Bob: { public_key: bobKeys.Bob.keypair.public_key }}
         ]
 
-        zencode(`Scenario 'simple': $scenario
-                 Given that I am known as 'Alice'
-                 and I have my 'keypair'
-                 and I have inside 'Bob' a valid 'public key'
-                 and I have a 'base64'
-                 When I encrypt the 'base64' to 'secret message' for 'Bob'
-                 Then print the 'secret message'`,
-                 JSON.stringify(aliceKeys),
-                 JSON.stringify(content)
-                )
+        zencode(zencode_encrypt_contract,
+                JSON.stringify(aliceKeys),
+                JSON.stringify(content))
 
         $("#result").html(zencodeResults)
     }
